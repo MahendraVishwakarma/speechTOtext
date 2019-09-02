@@ -119,9 +119,13 @@ extension Home {
             
             if result != nil {
                 
-                self.txtField.text = result?.bestTranscription.formattedString
+                let strToSave = result?.bestTranscription.formattedString
+                if(strToSave != self.txtField.text) {
+                    self.addRecordedSpeech()
+                }
+                self.txtField.text = strToSave
                 self.filterSpeech(text: self.txtField.text ?? "")
-                self.addRecordedSpeech()
+                
                 isFinal = (result?.isFinal)!
             }
             

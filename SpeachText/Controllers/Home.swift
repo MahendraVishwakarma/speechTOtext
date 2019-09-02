@@ -33,7 +33,7 @@ import RealmSwift
     }
 
     @IBAction func btnSearch(_ sender: Any) {
-        addRecordedSpeech()
+        
         filterSpeech(text: txtField.text ?? "")
     }
     @IBAction func microphoneTapped(_ sender: AnyObject) {
