@@ -14,6 +14,8 @@ extension Home {
     func initialization() {
         
         speechRecognizer.delegate = self
+        recognitionRequest?.taskHint = .search
+        
         askForPermission()
         tableview.register(UINib(nibName: "SpeechCell", bundle: nil), forCellReuseIdentifier: "speechCell")
         tableview.tableFooterView = UIView(frame: .zero)
@@ -119,6 +121,7 @@ extension Home {
                 
                 self.txtField.text = result?.bestTranscription.formattedString
                 self.filterSpeech(text: self.txtField.text ?? "")
+                self.addRecordedSpeech()
                 isFinal = (result?.isFinal)!
             }
             
@@ -181,7 +184,7 @@ extension Home : UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         audioEngine.stop()
         recognitionRequest?.endAudio()
-        microphoneButton.isEnabled = false
+        microphoneButton.isEnabled = true
         microphoneButton.setImage(UIImage(named: "mice"), for: .normal)
         headingLabel.text = "Ready to listen..."
         return true
